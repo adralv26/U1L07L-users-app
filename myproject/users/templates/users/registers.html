@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{%load static%}
+{% block title %}Register a New User{% endblock title %}
+{% block header_image %}
+<img class="masthead-avatar mb-5" src="{% static 'assets/blog/register.png' %}" alt="..." />
+{% endblock header_image %}
+{% block content %}
+<h2 class="post-title">
+    Register a New User
+</h2>
+<form action="/users/register/" method="POST" class="p-4 border rounded bg-light text-dark">
+    {% csrf_token %}
+    {% comment %} {{form}}     {% endcomment %}
+    {% comment %} display form errors {% endcomment %}
+    {%if form.errors%}
+    <div class="alert alert-danger">
+        <ul>
+            {%for field in form%}
+                {%if field.error%}
+                    <li>{{field.label}}:{{field.errors}}</li>
+                {%endif%}
+            {%endfor%}
+        </ul>
+    </div>
+    {%endif%}
+
+    <div class="mb-3">
+    <label for="{{form.username.id_for_label}}">Username</label>
+    {{form.username}}  
+    </div>
+
+    <div class="mb-3">
+    <label for="{{form.email.id_for_label}}">Email</label>
+    {{form.email}}  
+    </div>
+
+    <div class="mb-3">
+        <label for="{{form.first_name.id_for_label}}">First Name</label>
+        {{form.first_name}}  
+        </div>
+
+    <div class="mb-3">
+        <label for="{{form.last_name.id_for_label}}">Last Name</label>
+        {{form.last_name}}  
+        </div>
+
+    <div class="mb-3">
+    <label for="{{form.password1.id_for_label}}">Password</label>
+    {{form.password1}}   
+        </div>
+
+    <div class="mb-3">
+    <label for="{{form.password2.id_for_label}}">Password Verification</label>
+    {{form.password2}}        
+        </div>
+        
+    <button type='submit' class='btn btn-secondary mt-2'>Submit</button>
+</form>
+{% endblock content %}
